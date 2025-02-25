@@ -25,6 +25,7 @@ class CSVNode:
         self.__amnt__ = 0.0
         self.__name__ = ""
         self._create_node(line)
+        self._date_formatter()
 
     def _get_name(self):
         desc = self.__desc__.strip()
@@ -64,14 +65,17 @@ class CSVNode:
         
         print(name.strip().title())
 
-
-
-
     def _create_node(self, csv_line):
         self.__type__ = csv_line[0]
         self.__desc__ = csv_line[2]
         self.__date__ = csv_line[1]
         self.__amnt__ = round(float(csv_line[3]), 2)
+
+# turns date from mm/dd/yyyy into yyyy/mm/dd
+    def _date_formatter(self):
+        raw_dates = self.__date__.split("/")
+        self.__date__ = raw_dates[2] + "/" + raw_dates[0] + "/" + raw_dates[1]
+        
 
     def __repr__(self):
         return f"CSVNode:\ntype: {self.__type__}\ndescription: {self.__desc__}\ndate: {self.__date__}\ntotal: {self.__amnt__:.2f}\n"
