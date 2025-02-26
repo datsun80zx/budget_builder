@@ -17,8 +17,11 @@ def main():
     # list[3]._get_name()
     # list[4]._get_name()
 
-    yr_2024 = group_by_date(list)
-    print(yr_2024)
+    transactions_by_year = group_by_date(list)
+    for key in transactions_by_year[2025]: 
+        transaction = transactions_by_year[2025][key]
+        print(f"month: {key}\n value: {transaction}\n")
+    
     
 
 if __name__ == "__main__":

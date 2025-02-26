@@ -5,12 +5,24 @@ from budget_obj import CSVNode
 
 # function takes a list of CSVNodes and then puts them in a list of nodes by month. 
 def group_by_date(list):
-    year = []
-    for m in range(12): 
-        month = []
-        for node in list: 
-            if m == int(node.__date__.split("/")[1]) and node.__date__.split('/')[0] == "2024":
-                month.append(node)
-        year.append(month)
-    return year
+    year_dict = {}
+    for node in list:
+        date_parts = node.__date__.split("/")
+        year = int(date_parts[0])
+        month = int(date_parts[1])
 
+        # create a year and month if it doesn't exist
+        if year in year_dict:
+            if month in year_dict[year]:
+                year_dict[year][month].append(node)
+            else:
+                year_dict[year][month] = []
+                year_dict[year][month].append(node)
+
+        else:
+            year_dict[year] = {}
+            year_dict[year][month] = []
+            year_dict[year][month].append(node)
+
+    return year_dict
+    
