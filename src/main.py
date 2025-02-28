@@ -18,9 +18,10 @@ def main():
     # list[4]._get_name()
 
     transactions_by_year = group_by_date(list)
-    for key in transactions_by_year[2025]: 
-        transaction = transactions_by_year[2025][key]
-        print(f"month: {key}\n value: {transaction}\n")
+    # for key in transactions_by_year[2025]: 
+    transaction = transactions_by_year[2025][1]
+    for trans in transaction:
+        print(trans.__name__)
     
     
 
