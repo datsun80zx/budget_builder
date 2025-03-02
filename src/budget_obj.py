@@ -31,10 +31,11 @@ class CSVNode:
         
 
     def _get_name(self):
-        desc = self.__desc__.strip()
+        desc = self.__desc__.strip().upper()
 
-        if desc.startswith("ATM WITHDRAWAL"):
-            return "ATM"
+        if desc.startswith("ATM"):
+            self.__name__ = "ATM"
+            return 
 
         if "REAL TIME PAYMENT" in desc and "MONEYLION" in desc.upper():
             self.__name__ = "MoneyLion Instacash"
@@ -44,13 +45,19 @@ class CSVNode:
             self.__name__ = "Bank Fee - Overdraft"
             return
         
+        if desc.startswith("ONLINE TRANSFER") or desc.startswith("ODP"):
+            self.__name__ = "Internal Account Transfer"
+            return
+        
        # Apply merchant-specific mappings
         merchant_mappings = {
         "DAVE INC": "Dave",
         "DAVE": "Dave",
         "CHARLES SCHWAB & PAYROLL": "Payroll - Schwab",
-        "MEIJER EXPRESS 323": "Meijer Gas",
-        "MEIJER STORE #323": "Meijer",
+        "MEIJER EXPRESS": "Meijer Gas",
+        "MEIJER STORE": "Meijer",
+        "WALMART": "Walmart",
+        "WAL-MART": "Walmart",
         "SCHWAB MKTPL RCHFLD": "Schwab Market",
         "AM INCOME LIFE": "Insurance - American Income Life",
         "PLANET FIT": "Planet Fitness",
@@ -59,6 +66,11 @@ class CSVNode:
         "SCRIBD": "Scribd",
         "NETFLIX": "Netflix",
         "SPOTIFY USA": "Spotify",
+        "TACO BELL": "Taco Bell",
+        "COLUMBIA": "Gas Bill",
+        "ALA 0919": "Car Payment",
+        "AMAZON": "Amazon",
+        "PRIME": "Amazon",
         "OPENAI *CHATGPT": "ChatGPT Plus",
         "CLAUDE.AI": "Claude AI",
         "CRUNCHYROLL": "Crunchyroll",
@@ -67,12 +79,16 @@ class CSVNode:
         "LEGALZOOM.COM": "LegalZoom",
         "LEGALZOOM": "LegalZoom",
         "ZOOM.COM": "Zoom",
+        "ZOOM.US": "Zoom",
         "NOTION LABS": "Notion",
         "FREECODECAMP.ORG": "FreeCodeCamp",
         "AUDIBLE": "Audible",
         "GOOGLE *LASTPASS": "LastPass",
         "GOOGLE *HIDIVE": "HIDIVE",
-        "DD *DOORDASHDASHPASS": "DoorDash Pass"
+        "DD *DOORDASHDASHPASS": "DoorDash Pass",
+        "DOORDASH, INC": "Doordash",
+        "STRIPE": "Stripe Payment",
+        "ZELLE": "Zelle"
     }
 
         # split off the PPD ID and cleans up the whitespace before and after if any. 
